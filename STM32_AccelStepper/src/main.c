@@ -78,8 +78,11 @@ int main(void)
   /* Configure the system clock to 100 MHz */
   SystemClock_Config();
 
-  /*##-1- Enable GPIOA Clock (to be able to program the configuration registers) */
+  /*##-1- Enable GPIO Clock (to be able to program the configuration registers) */
   __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
+  __HAL_RCC_GPIOC_CLK_ENABLE();
+
 
   /*##-2- Configure PA05 IO in output push-pull mode to drive external LED ###*/
   //GPIO_InitTypeDef  GPIO_InitStruct;
@@ -89,28 +92,47 @@ int main(void)
   //GPIO_InitStruct.Speed = GPIO_SPEED_FAST;
   //HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*##-2- Initialize stepper motor (Aduino analog pins A0, A1, A2, A3) ###*/
-  Stepper_t stepper;
-  InitStepper(&stepper, HALF4WIRE, GPIO_PIN_5, GPIOA, GPIO_PIN_1, GPIOA, GPIO_PIN_4, GPIOA, GPIO_PIN_0, GPIOA, 1);
-  setMaxSpeed(&stepper, 1000);
-  setSpeed(&stepper, 1000);
-  setAcceleration(&stepper, 100);
-  moveTo(&stepper, 1000000000);
-  enableOutputs(&stepper);
 
-  /*##-3- Toggle PA05 IO in an infinite loop #################################*/
+  Stepper_t stepperX;
+  InitStepper(&stepperX, HALF4WIRE, GPIO_PIN_13, GPIOC, GPIO_PIN_15, GPIOC, GPIO_PIN_14, GPIOC, GPIO_PIN_9, GPIOC, 1);
+  setMaxSpeed(&stepperX, 1000);
+  setSpeed(&stepperX, 1000);
+  setAcceleration(&stepperX, 1000);
+  moveTo(&stepperX, 10000000);
+  enableOutputs(&stepperX);
+
+  Stepper_t stepperY;
+  InitStepper(&stepperY, HALF4WIRE, GPIO_PIN_2, GPIOC, GPIO_PIN_5, GPIOC, GPIO_PIN_3, GPIOC, GPIO_PIN_11, GPIOC, 1);
+  setMaxSpeed(&stepperY, 1000);
+  setSpeed(&stepperY, 1000);
+  setAcceleration(&stepperY, 1000);
+  moveTo(&stepperY, 10000000);
+  enableOutputs(&stepperY);
+
+  Stepper_t stepperF;
+  InitStepper(&stepperF, HALF4WIRE, GPIO_PIN_1, GPIOB, GPIO_PIN_10, GPIOB, GPIO_PIN_2, GPIOB, GPIO_PIN_12, GPIOC, 1);
+  setMaxSpeed(&stepperF, 1000);
+  setSpeed(&stepperF, 1000);
+  setAcceleration(&stepperF, 1000);
+  moveTo(&stepperF, 10000000);
+  enableOutputs(&stepperF);
+
+
   while (1)
   {
-	  //HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+	  //HAL_GPIO_TogglePin(stepper._GPIOxPin[4], stepper._pin[4]);
 
-	  //HAL_GPIO_WritePin(stepper._GPIOxPin[1], stepper._pin[1], GPIO_PIN_SET);
 	  //runSpeed(&stepper);
-	  run(&stepper);
+	  run(&stepperX);
+	  run(&stepperY);
+	  run(&stepperF);
 
 	  /* Insert a 100ms delay */
 	  //HAL_Delay(100);
   }
 }
+
+
 
 /**
   * @brief  System Clock Configuration
