@@ -48,7 +48,7 @@ uint8_t runSpeed(Stepper_t* motor)
     // Dont do anything unless we actually have a step interval
     if (!motor->_stepInterval) return 0; // false
 
-	unsigned long time = HAL_GetTick() * 1000; //Arduino: micros();
+	unsigned long time = HAL_GetTick() * 10; //Arduino: micros();
 	unsigned long nextStepTime = motor->_lastStepTime + motor->_stepInterval;
 
 	// Gymnastics to detect wrapping of either the nextStepTime and/or the current time
@@ -427,7 +427,7 @@ void step1(Stepper_t* motor, long step)
     setOutputPins(motor, motor->_direction ? 0b11 : 0b01); // step HIGH
     // Caution 200ns setup time
     // Delay the minimum allowed pulse width
-    HAL_Delay(motor->_minPulseWidth / 1000); //delayMicroseconds(motor->_minPulseWidth);
+    HAL_Delay(motor->_minPulseWidth / 100000); //delayMicroseconds(motor->_minPulseWidth);
     setOutputPins(motor, motor->_direction ? 0b10 : 0b00); // step LOW
 
 }

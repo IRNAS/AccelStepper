@@ -115,6 +115,8 @@ int main(void) {
 	enableOutputs(&stepperF);
 
 	while (1) {
+
+		/* toggle LED LD2 */
 		HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
 
 		//runSpeed(&stepperX);
@@ -122,8 +124,8 @@ int main(void) {
 		run(&stepperY);
 		run(&stepperF);
 
-		/* Insert a 100ms delay */
-		//HAL_Delay(100);
+		/* Insert a 1s delay */
+		//HAL_Delay(100000);
 	}
 }
 
@@ -152,8 +154,7 @@ static void SystemClock_Config(void) {
 	RCC_OscInitTypeDef RCC_OscInitStruct;
 
 	/* Enable Power Control clock */
-	__HAL_RCC_PWR_CLK_ENABLE()
-	;
+	__HAL_RCC_PWR_CLK_ENABLE();
 
 	/* The voltage scaling allows optimizing the power consumption when the device is
 	 clocked below the maximum system frequency, to update the voltage scaling value
@@ -184,8 +185,7 @@ static void SystemClock_Config(void) {
 		Error_Handler();
 	}
 
-	HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq() / 1000);
-
+	HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq() / 100000);
 	HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
 
 	/* SysTick_IRQn interrupt configuration */
