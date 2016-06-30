@@ -48,7 +48,7 @@ uint8_t runSpeed(Stepper_t* motor)
     // Dont do anything unless we actually have a step interval
     if (!motor->_stepInterval) return 0; // false
 
-	unsigned long time = HAL_GetTick() * 1000 * 10; //Arduino: micros();
+	unsigned long time = HAL_GetTick() * 1000; //Arduino: micros();
 	unsigned long nextStepTime = motor->_lastStepTime + motor->_stepInterval;
 
 	// Gymnastics to detect wrapping of either the nextStepTime and/or the current time
@@ -193,8 +193,7 @@ void computeNewSpeed(Stepper_t* motor)
 // returns true if the motor is still running to the target position.
 uint8_t run(Stepper_t* motor)
 {
-    if (runSpeed(motor))
-    	computeNewSpeed(motor);
+    if (runSpeed(motor)) computeNewSpeed(motor);
 
     return motor->_speed != 0.0 || distanceToGo(motor) != 0;
 }
@@ -309,7 +308,7 @@ void setAcceleration(Stepper_t* motor, float acceleration)
 	    // Recompute _n per Equation 17
     	motor->_n = motor->_n * (motor->_acceleration / acceleration);
 		// New c0 per Equation 7, with correction per Equation 15
-    	motor->_c0 = 0.676 * sqrt(2.0 / acceleration) * 1000000.0;//1000000.0; // Equation 15
+    	motor->_c0 = 0.676 * sqrt(2.0 / acceleration) * 1000000.0;// Equation 15
     	motor->_acceleration = acceleration;
 		computeNewSpeed(motor);
     }
@@ -335,7 +334,7 @@ void setSpeed(Stepper_t* motor, float speed)
     }
     else
     {
-    	motor->_stepInterval = fabs(1000000.0 / speed);//fabs(1000000.0 / speed);
+    	motor->_stepInterval = fabs(1000000.0 / speed);
     	motor->_direction = (speed > 0.0) ? DIRECTION_CW : DIRECTION_CCW;
     }
 
@@ -469,12 +468,12 @@ void step3(Stepper_t* motor, long step)
 			setOutputPins(motor, 0b100);
 			break;
 
-		case 1:    // 001
-			setOutputPins(motor, 0b001);
+		case 1:    // 010
+			setOutputPins(motor, 0b010);
 			break;
 
-		case 2:    //010
-			setOutputPins(motor, 0b010);
+		case 2:    //001
+			setOutputPins(motor, 0b001);
 			break;
     }
 }
@@ -515,24 +514,24 @@ void step6(Stepper_t* motor, long step)
 			setOutputPins(motor, 0b100);
 			break;
 
-		case 1:    // 101
-			setOutputPins(motor, 0b101);
+		case 1:    // 110
+			setOutputPins(motor, 0b110);
 			break;
 
-		case 2:    // 001
-			setOutputPins(motor, 0b001);
+		case 2:    // 010
+			setOutputPins(motor, 0b010);
 			break;
 
 		case 3:    // 011
 			setOutputPins(motor, 0b011);
 			break;
 
-		case 4:    // 010
-			setOutputPins(motor, 0b010);
+		case 4:    // 001
+			setOutputPins(motor, 0b001);
 			break;
 
-		case 5:    // 011
-			setOutputPins(motor, 0b110);
+		case 5:    // 101
+			setOutputPins(motor, 0b101);
 			break;
     }
 }
@@ -545,14 +544,14 @@ void step8(Stepper_t* motor, long step)
     switch (step & 0x7)
     {
 		case 0:    // 1000
-			setOutputPins(motor, 0b0001);
+			setOutputPins(motor, 0b1000);
 			break;
 
-		case 1:    // 1010
-			setOutputPins(motor, 0b0101);
+		case 1:    // 1100
+			setOutputPins(motor, 0b1100);
 			break;
 
-		case 2:    // 0010
+		case 2:    // 0100
 			setOutputPins(motor, 0b0100);
 			break;
 
@@ -560,16 +559,16 @@ void step8(Stepper_t* motor, long step)
 			setOutputPins(motor, 0b0110);
 			break;
 
-		case 4:    // 0100
+		case 4:    // 0010
 			setOutputPins(motor, 0b0010);
 			break;
 
-		case 5:    //0101
-			setOutputPins(motor, 0b1010);
+		case 5:    //0011
+			setOutputPins(motor, 0b0011);
 			break;
 
 		case 6:    // 0001
-			setOutputPins(motor, 0b1000);
+			setOutputPins(motor, 0b0001);
 			break;
 
 		case 7:    //1001
