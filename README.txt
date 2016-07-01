@@ -1,1 +1,1 @@
-Port of Arduino AccelSteper library to STM32F4 microcontroller.
+Port of Arduino AccelSteper library to STM32F4 microcontrollers.
