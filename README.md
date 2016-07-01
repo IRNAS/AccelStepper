@@ -1,7 +1,7 @@
-# Port of Arduino AccelSteper library to STM32F4 microcontrollers.
+# Port of Arduino AccelStepper library to STM32F4 microcontrollers.
 
 ### Software
-This project contains [example code](https://github.com/IRNAS/AccelStepper/blob/master/STM32_AccelStepper/src/main.c) for using the modified [AccelStepper](https://github.com/IRNAS/AccelStepper/blob/master/STM32_AccelStepper/inc/AccelStepper.h) library to drive unipolar stepper motors. All required HAL drivers were added using [STM32CubeF4 1.12.0](http://www.st.com/content/st_com/en/products/embedded-software/mcus-embedded-software/stm32-embedded-software/stm32cube-embedded-software/stm32cubef4.html).
+This project contains [example code](https://github.com/IRNAS/AccelStepper/blob/master/STM32_AccelStepper/src/main.c) for using the modified [AccelStepper](https://github.com/IRNAS/AccelStepper/blob/master/STM32_AccelStepper/inc/AccelStepper.h) library to drive unipolar stepper motors. All required HAL drivers were added from [STM32CubeF4 1.12.0](http://www.st.com/content/st_com/en/products/embedded-software/mcus-embedded-software/stm32-embedded-software/stm32cube-embedded-software/stm32cubef4.html).
 
 ### Environment setup
 
@@ -12,7 +12,7 @@ Import project to IDE and compile.
 Information on importing project, compiling, and downloading code to the board, can be found here www.openstm32.org.
 
 ### Hardware
-For this example the [STM32F411RET6][MCU_LINK] MCU was used. This MCU is located on the [STM NUCLEO][BOARD_LINK] board. LED LD2 can be configured for periodic flashing. The stepper motor drivers are connected to pins as follows:
+For this example the [STM32F411RET6](http://www.st.com/content/st_com/en/products/microcontrollers/stm32-32-bit-arm-cortex-mcus/stm32f4-series/stm32f411/stm32f411re.html) MCU was used. This MCU is located on the [STM NUCLEO](http://www.st.com/content/st_com/en/products/evaluation-tools/product-evaluation-tools/mcu-eval-tools/stm32-mcu-eval-tools/stm32-mcu-nucleo/nucleo-f411re.html) board. LED LD2 can be configured for periodic flashing. The stepper motor drivers are connected to pins as follows:
 
 * X axis:
   * PC13 - signal 1
