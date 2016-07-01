@@ -95,7 +95,7 @@ int main(void) {
 	setMaxSpeed(&stepperX, 1000);
 	setSpeed(&stepperX, 1000);
 	setAcceleration(&stepperX, 1000);
-	moveTo(&stepperX, 10000000);
+	moveTo(&stepperX, -10000000);
 	enableOutputs(&stepperX);
 
 	Stepper_t stepperY;
@@ -103,7 +103,7 @@ int main(void) {
 	setMaxSpeed(&stepperY, 1000);
 	setSpeed(&stepperY, 1000);
 	setAcceleration(&stepperY, 1000);
-	moveTo(&stepperY, 10000000);
+	moveTo(&stepperY, -10000000);
 	enableOutputs(&stepperY);
 
 	Stepper_t stepperF;
@@ -111,7 +111,7 @@ int main(void) {
 	setMaxSpeed(&stepperF, 1000);
 	setSpeed(&stepperF, 1000);
 	setAcceleration(&stepperF, 1000);
-	moveTo(&stepperF, 10000000);
+	moveTo(&stepperF, -10000000);
 	enableOutputs(&stepperF);
 
 	while (1) {

@@ -29,13 +29,13 @@ endif
 # Add inputs and outputs from these tool invocations to the build variables 
 
 # All Target
-all: test_gpio.elf
+all: STM32_AccelStepper.elf
 
 # Tool invocations
-test_gpio.elf: $(OBJS) $(USER_OBJS)
+STM32_AccelStepper.elf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: MCU GCC Linker'
-	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T"C:\Users\user\Desktop\nucleo_workspace\test_gpio\LinkerScript.ld" -Wl,-Map=output.map -Wl,--gc-sections -lm -o "test_gpio.elf" @"objects.list" $(USER_OBJS) $(LIBS)
+	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T"C:\Users\user\Desktop\nucleo_workspace\STM32_AccelStepper\LinkerScript.ld" -Wl,-Map=output.map -Wl,--gc-sections -lm -o "STM32_AccelStepper.elf" @"objects.list" $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 	$(MAKE) --no-print-directory post-build
@@ -47,8 +47,8 @@ clean:
 
 post-build:
 	-@echo 'Generating binary and Printing size information:'
-	arm-none-eabi-objcopy -O binary "test_gpio.elf" "test_gpio.bin"
-	arm-none-eabi-size -B "test_gpio.elf"
+	arm-none-eabi-objcopy -O binary "STM32_AccelStepper.elf" "STM32_AccelStepper.bin"
+	arm-none-eabi-size -B "STM32_AccelStepper.elf"
 	-@echo ' '
 
 .PHONY: all clean dependents
